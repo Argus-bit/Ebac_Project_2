@@ -16,7 +16,6 @@ public class StateMachineEditor : Editor
 
         EditorGUILayout.Space(30);
         EditorGUILayout.LabelField("State Machine");
-        //
         if (fsm.stateMachine == null) return;
         if (fsm.stateMachine.CurrentState != null)
             EditorGUILayout.LabelField("Current State:", fsm.stateMachine.CurrentState.ToString());
