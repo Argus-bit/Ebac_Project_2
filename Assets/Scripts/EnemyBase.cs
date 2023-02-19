@@ -12,6 +12,7 @@ namespace Enemy
         public FlashColor flashColor;
         public ParticleSystem particleSystem;
         public float startLife = 10f;
+        public bool lookAtPlayer = false;
 
         [Header("Animation")]
         [SerializeField] private AnimationBase _animationBase;
@@ -22,9 +23,16 @@ namespace Enemy
         public float startAnimationDuration = .2f;
         public Ease startAnimationEase = Ease.OutBack;
         public bool startWithBornAnimation = true;
+
+        private Player _player;
+
         private void Awake()
         {
             Init();
+        }
+        private void Start()
+        {
+            _player = GameObject.FindObjectOfType<Player>();
         }
         protected void ResetLife()
         {
@@ -66,14 +74,24 @@ namespace Enemy
             _animationBase.PlayAnimationByTrigger(animationType);
         }
         #endregion
-        private void Update()
+        public void Damage (float damage)
+        { 
+            OnDamage(damage); 
+        }
+        private void OnCollisionEnter(Collision collision)
         {
-            if(Input.GetKeyDown(KeyCode.T))
+            Player p = collision.transform.GetComponent<Player>();
+            if(p != null)
             {
-                OnDamage(5f);
+                p.Damage(1);
             }
         }
-        public void Damage (float damage)
-        { OnDamage(damage); }
+        public virtual void Update()
+        {
+            if (lookAtPlayer)
+            {
+                transform.LookAt(_player.transform.position);
+            }
+        }
     } 
 }

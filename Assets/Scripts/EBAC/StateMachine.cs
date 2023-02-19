@@ -41,11 +41,11 @@ namespace Ebac.StateMachine
         {
             dicionaryState.Add(typeEnum, state);
         }
-        public void SwitchState(T state)
+        public void SwitchState(T state, params object[] objs)
         {
             if (_currentstate != null) _currentstate.OnStateExit();
             _currentstate = dicionaryState[state];
-            _currentstate.OnStateEnter();
+            _currentstate.OnStateEnter(objs);
         }
 
 

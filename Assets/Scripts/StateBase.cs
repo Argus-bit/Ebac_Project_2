@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class StateBase
 {
-    public virtual void OnStateEnter(object o = null)
+    public virtual void OnStateEnter(params object[] objs)
     { Debug.Log("OnStateEnter"); }
-    public virtual void OnStateStay(object o = null)
+    public virtual void OnStateStay()
     { Debug.Log("OnStateStay"); }
-    public virtual void OnStateExit(object o = null)
+    public virtual void OnStateExit()
     { Debug.Log("OnStateExit"); }
 }
 
@@ -22,17 +22,17 @@ public class StatePlaying : StateBase
 }
 public class StateResetPosition : StateBase
 {
-    public override void OnStateEnter(object o = null)
+    public override void OnStateEnter(params object[] objs)
     {
-        base.OnStateEnter(o);
+        base.OnStateEnter(objs);
        /* GameManager.Instance.ResetBall();*/
     }
 }
 public class StateEndGame : StateBase
 {
-    public override void OnStateEnter(object o = null)
+    public override void OnStateEnter(params object[] objs)
     {
-        base.OnStateEnter(o);
+        base.OnStateEnter(objs);
         //GameManager.Instance.ShowMainMenu();
     }
 }
