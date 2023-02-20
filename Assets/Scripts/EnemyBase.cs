@@ -57,7 +57,8 @@ namespace Enemy
         public void OnDamage(float f)
         {
             if (flashColor != null) flashColor.Flash();
-            if (particleSystem != null) particleSystem.Emit(15); 
+            if (particleSystem != null) particleSystem.Emit(15);
+            transform.position -= transform.forward;
             _currentLife -= f;
             if(_currentLife <= 0)
             {
@@ -83,7 +84,7 @@ namespace Enemy
             Player p = collision.transform.GetComponent<Player>();
             if(p != null)
             {
-                p.Damage(1);
+                p.healthBase.Damage(1);
             }
         }
         public virtual void Update()

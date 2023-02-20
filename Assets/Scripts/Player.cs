@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IDamageable
+public class Player : MonoBehaviour//, IDamageable
 {
 	public Animator animator;
 	public CharacterController characterController;
@@ -19,9 +19,34 @@ public class Player : MonoBehaviour, IDamageable
 
 	[Header("Flash")]
 	public List<FlashColor> flashColors;
-    public void Damage(float damage)
-    {
+
+	[Header("Life")]
+	public HealthBase healthBase;
+	private bool _alive = true;
+
+	private void OnValidate()
+	{
+		if (healthBase == null) healthBase = GetComponent<HealthBase>();
+	}
+	private void Awake()
+	{
+		OnValidate();
+		healthBase.OnDamage += Damage;
+		healthBase.OnKill += OnKill;
+	}
+	public void Damage(HealthBase h)
+	{
 		flashColors.ForEach(i => i.Flash());
+	}
+
+	private void OnKill(HealthBase h)
+	{
+		if (_alive)
+		{
+			_alive = false;
+			animator.SetTrigger("Death");
+			Invoke(nameof(Revive), 3f);
+		}
 	}
 	public void Damage(float damage, Vector3 dir)
 	{}
@@ -58,4 +83,18 @@ public class Player : MonoBehaviour, IDamageable
 		characterController.Move(speedVector * Time.deltaTime);
 		animator.SetBool("Run", isWalking);
 	}
+	[NaughtyAttributes.Button]
+	public void Respawn()
+    {
+		if(CheckpointManager.Instance.HasCkeckpoint())
+        {
+			transform.position =  CheckpointManager.Instance.GetPositionFromLastCheckpoint();
+        }
+    }
+	private void Revive()
+    {
+		healthBase.ResetLife();
+		animator.SetTrigger("Revive");
+		Respawn();
+    }
 }
