@@ -37,6 +37,8 @@ public class Player : MonoBehaviour//, IDamageable
 	public void Damage(HealthBase h)
 	{
 		flashColors.ForEach(i => i.Flash());
+		EffectsManager.Instance.ChangeVignette();
+		ShakeCamera.Instance.Shake();
 	}
 
 	private void OnKill(HealthBase h)
