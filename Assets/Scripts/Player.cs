@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EBAC.Core.Singleton;
 
-public class Player : MonoBehaviour//, IDamageable
+public class Player : Singleton<Player> //, IDamageable
 {
+	public List<Collider> colliders;
 	public Animator animator;
 	public CharacterController characterController;
 	public float speed = 1f;
 	public float turnSpeed = 1f;
-	public float gravity = -9.8f;
+	public float gravity = -9.8f; 
 	public float jumpSpeed = 15f;
 
 	[Header("Run Setup")]
@@ -28,13 +30,14 @@ public class Player : MonoBehaviour//, IDamageable
 	{
 		if (healthBase == null) healthBase = GetComponent<HealthBase>();
 	}
-	private void Awake()
-	{
+    protected override void Awake()
+    {
+        base.Awake();
 		OnValidate();
 		healthBase.OnDamage += Damage;
 		healthBase.OnKill += OnKill;
 	}
-	public void Damage(HealthBase h)
+    public void Damage(HealthBase h)
 	{
 		flashColors.ForEach(i => i.Flash());
 		EffectsManager.Instance.ChangeVignette();
