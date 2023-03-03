@@ -66,7 +66,7 @@ public class GunBase : MonoBehaviour
 	}
 	public void StopShoot()
 	{
-		if (_currentCoroutine != null)
-		StopCoroutine(_currentCoroutine);
+		//if (_currentCoroutine != null)
+		//StopCoroutine(_currentCoroutine);
 	}
 }
