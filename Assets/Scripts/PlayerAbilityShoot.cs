@@ -13,6 +13,7 @@ public class PlayerAbilityShoot : PlayerAbilityBase
 	public KeyCode gunCodeTwo = KeyCode.Alpha2;
 
 	private GunBase _currentGun;
+	public FlashColor _flashColor;
     private void Update()
     {
 		if (Input.GetKeyDown(gunCodeOne))
@@ -40,6 +41,7 @@ public class PlayerAbilityShoot : PlayerAbilityBase
 	private void StartShoot()
 	{
 		gunBase.StartShoot();
+		_flashColor?.Flash();
 		Debug.Log("Start Shoot");
 	}
 	private void CancelShoot()
