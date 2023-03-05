@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using EBAC.Core.Singleton;
+using Cloth;
 
 public class Player : Singleton<Player> //, IDamageable
 {
@@ -25,6 +26,9 @@ public class Player : Singleton<Player> //, IDamageable
 	[Header("Life")]
 	public HealthBase healthBase;
 	private bool _alive = true;
+
+	[Space]
+	public ClothChange clothChange;
 
 	private void OnValidate()
 	{
@@ -102,4 +106,27 @@ public class Player : Singleton<Player> //, IDamageable
 		animator.SetTrigger("Revive");
 		Respawn();
     }
+
+	public void ChangeSpeed(float speed, float duration)
+    {
+		StartCoroutine(ChangeSpeedCoroutine(speed, duration));
+    }
+	public void ChangeTexture(ClothSetup setup, float duration)
+	{
+		StartCoroutine(ChangeTextureCoroutine(setup, duration));
+	}
+	IEnumerator ChangeSpeedCoroutine(float localSpeed, float duration)
+    {
+		var defaultSpeed = speed;
+		speed = localSpeed;
+		yield return new WaitForSeconds(duration);
+		speed = defaultSpeed;
+    }
+	IEnumerator ChangeTextureCoroutine(ClothSetup setup, float duration)
+	{
+		clothChange.ChangeTexture(setup);
+		yield return new WaitForSeconds(duration);
+		clothChange.ResetTexture();
+	}
+
 }
