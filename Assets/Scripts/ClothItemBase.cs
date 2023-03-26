@@ -7,8 +7,14 @@ namespace Cloth
     public class ClothItemBase : MonoBehaviour
     {
         public ClothType clothType;
+        public int presentCloth;
         public float duration = 2f;
         public string compareTag = "Player";
+
+        public void Start()
+        {
+            LoadItemsFromSave();
+        }
         private void OnTriggerEnter(Collider collision)
         {
             if (collision.transform.CompareTag(compareTag))
@@ -22,6 +28,11 @@ namespace Cloth
             Player.Instance.ChangeTexture(setup, duration);
             Debug.Log(clothType);
             HideObject();
+        }
+        private void LoadItemsFromSave()
+        {
+            var setup = SaveManager.Instance.Setup.cloth;
+            Player.Instance.ChangeTexture(setup, duration);
         }
         private void HideObject()
         {

@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using EBAC.Core.Singleton;
 using Ebac.StateMachine;
 public class GameManager : Singleton<GameManager>
@@ -14,7 +11,6 @@ public class GameManager : Singleton<GameManager>
         LOSE
     }
     public StateMachine<GameStates> stateMachine;
-
     private void Start()
     {
         Init();
@@ -29,7 +25,5 @@ public class GameManager : Singleton<GameManager>
         stateMachine.RegisterStates(GameStates.WIN, new StateBase());
         stateMachine.RegisterStates(GameStates.LOSE, new StateBase());
         stateMachine.SwitchState(GameStates.INTRO);
-
     }
-
 }

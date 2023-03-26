@@ -13,6 +13,8 @@ namespace Cloth
     }
     public class ClothManager : Singleton<ClothManager>
     {
+        public int lastCloth = 0;
+
         public List<ClothSetup> clothSetups;
 
         public ClothSetup GetSetupType(ClothType clothType)

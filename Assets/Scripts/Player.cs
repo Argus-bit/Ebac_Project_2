@@ -34,6 +34,10 @@ public class Player : Singleton<Player> //, IDamageable
 	{
 		if (healthBase == null) healthBase = GetComponent<HealthBase>();
 	}
+    public void Start()
+    {
+		Respawn();
+	}
     protected override void Awake()
     {
         base.Awake();
@@ -97,7 +101,7 @@ public class Player : Singleton<Player> //, IDamageable
     {
 		if(CheckpointManager.Instance.HasCkeckpoint())
         {
-			transform.position =  CheckpointManager.Instance.GetPositionFromLastCheckpoint();
+			transform.position = CheckpointManager.Instance.GetPositionFromLastCheckpoint();
         }
     }
 	private void Revive()

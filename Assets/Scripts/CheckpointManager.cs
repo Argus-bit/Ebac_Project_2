@@ -8,11 +8,22 @@ public class CheckpointManager : Singleton<CheckpointManager>
     public int lastCheckPointKey = 0;
     public List<CheckPointBase> checkpoints;
 
+
+    private void Start()
+    {
+        LoadItemsFromSave();
+    }
+
+    private void LoadItemsFromSave()
+    {
+        lastCheckPointKey = SaveManager.Instance.Setup.checkpoint;
+    }
+
+
     public bool HasCkeckpoint()
     {
         return lastCheckPointKey > 0;
     }
-
     public void SaveCheckPoint(int i)
     {
         if(i > lastCheckPointKey)
