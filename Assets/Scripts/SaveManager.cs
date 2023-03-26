@@ -10,7 +10,9 @@ public class SaveManager : Singleton<SaveManager>
 	private string _path = Application.streamingAssetsPath + "/save.txt";
 	public int lastlevel;
 	public Action<SaveSetup> FileLoaded;
-    public SaveSetup Setup
+	private ClothType clothType;
+
+	public SaveSetup Setup
 	{
 		get { return _saveSetup; }
 	}
@@ -35,16 +37,20 @@ public class SaveManager : Singleton<SaveManager>
 		_saveSetup.coins = Itens.ItemManager.Instance.GetItemByType(Itens.ItemType.COIN).soInt.value;
 		_saveSetup.health = Itens.ItemManager.Instance.GetItemByType(Itens.ItemType.LIFE_PACK).soInt.value;
 		_saveSetup.checkpoint = CheckpointManager.Instance.lastCheckPointKey;
-		_saveSetup.cloth = ClothManager.Instance.clothSetups[0];
+
+		Save();
+	}
+	public void SaveCloth(ClothSetup setup)
+	{
+		_saveSetup.cloth = setup;
 		Save();
 	}
 
 	[NaughtyAttributes.Button]
-	private void Save()
+	public void Save()
 	{
 		string setupToJson = JsonUtility.ToJson(_saveSetup, true);
 		SaveFile(setupToJson);
-
 	}
 	private void SaveFile(string json)
 	{

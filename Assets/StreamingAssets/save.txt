@@ -1,0 +1,12 @@
+{
+    "coins": 7.0,
+    "health": 0.0,
+    "lastlevel": 1,
+    "checkpoint": 2,
+    "cloth": {
+        "clothType": 1,
+        "texture": {
+            "instanceID": 30580
+        }
+    }
+}

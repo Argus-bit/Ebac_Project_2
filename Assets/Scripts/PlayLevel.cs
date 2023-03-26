@@ -12,7 +12,7 @@ public class PlayLevel : MonoBehaviour
     }
     public void OnLoad(SaveSetup setup)
     {
-        uiTextName.text = "Play";
+        uiTextName.text = "Play"+ (setup.lastlevel+1);
     }
     private void OnDestroy()
     {

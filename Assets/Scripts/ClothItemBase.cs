@@ -6,10 +6,13 @@ namespace Cloth
 {
     public class ClothItemBase : MonoBehaviour
     {
-        public ClothType clothType;
         public int presentCloth;
         public float duration = 2f;
         public string compareTag = "Player";
+        internal static object Instance;
+        private SaveSetup _saveSetup;
+        private SaveManager _saveManager;
+        public ClothType clothType;
 
         public void Start()
         {
@@ -20,24 +23,29 @@ namespace Cloth
             if (collision.transform.CompareTag(compareTag))
             {
                 Collect();
+               // _saveSetup.cloth = ClothManager.Instance.GetSetupType(clothType);
+               // _saveManager.Save();
+
             }
         }
         public virtual void Collect()
         {
             var setup = ClothManager.Instance.GetSetupType(clothType);
             Player.Instance.ChangeTexture(setup, duration);
+            SaveManager.Instance.SaveCloth(setup);
             Debug.Log(clothType);
             HideObject();
+        }
+        private void HideObject()
+        {
+            gameObject.SetActive(false);
         }
         private void LoadItemsFromSave()
         {
             var setup = SaveManager.Instance.Setup.cloth;
             Player.Instance.ChangeTexture(setup, duration);
         }
-        private void HideObject()
-        {
-            gameObject.SetActive(false);
-        }
+
     }
 }
 
