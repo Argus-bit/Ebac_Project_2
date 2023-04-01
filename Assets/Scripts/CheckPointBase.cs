@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class CheckPointBase : MonoBehaviour
 {
+    public SFXType sfxType;
     public MeshRenderer meshRenderer;
     public int key = 01;
     private string checkPointKey = "CheckPointKey";
     private void OnTriggerEnter(Collider other)
     {
         if(other.transform.tag == "Player")
-        { CheckCheckPoint(); }
+        { CheckCheckPoint();
+          PlayeSFX();
+        }
+    }
+    private void PlayeSFX()
+    {
+        SFXPool.Instance.Play(sfxType);
     }
     [NaughtyAttributes.Button]
     private void CheckCheckPoint()

@@ -2,7 +2,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
-
+/*
 [CustomEditor(typeof(GameManager))]
 public class GameManagerEditor : Editor
 {
@@ -38,4 +38,4 @@ public class GameManagerEditor : Editor
         }
 
     }
-}
+}*/

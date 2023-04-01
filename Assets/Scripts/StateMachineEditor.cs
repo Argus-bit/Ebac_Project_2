@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 
 
-[CustomEditor(typeof(FSMExample))]
+/*[CustomEditor(typeof(FSMExample))]
 public class StateMachineEditor : Editor
 {
     public bool showFoldout;
@@ -38,4 +38,4 @@ public class StateMachineEditor : Editor
         }
 
     }
-}
+}*/
